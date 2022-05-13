@@ -22,6 +22,7 @@ struct queue {
 Queue queue_create(DestroyFunc destroy_value) {
 	Queue queue = malloc(sizeof(*queue));
 	queue->stack = stack_create(NULL);
+	queue->stack_bottom = NULL;
 	return queue;
 }
 

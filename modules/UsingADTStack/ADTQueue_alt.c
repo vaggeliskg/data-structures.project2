@@ -50,8 +50,8 @@ Pointer queue_back(Queue queue) {
 
 void queue_insert_back(Queue queue, Pointer value) {
 	if(stack_size(queue->stack) == 0) {
-	stack_insert_top(queue->stack,value);
-	queue->stack_bottom = value;
+		stack_insert_top(queue->stack,value);
+		queue->stack_bottom = value;
 	}
 	else stack_insert_top(queue->stack,value);
 }
