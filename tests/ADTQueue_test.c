@@ -26,7 +26,7 @@ void test_insert(void) {
 	int* array = malloc(N * sizeof(*array));					// Στο queue θα προσθέσουμε pointers προς τα στοιχεία αυτού του πίνακα
 
 	// insert 1000 στοιχεία
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 1000 ; i++) {
 		queue_insert_back(queue, &array[i]);
 		TEST_ASSERT(queue_size(queue) == i+1);			// Το size πρέπει να μεγαλώσει
 		TEST_ASSERT(queue_front(queue) == &array[0]);	// Το μπροστινό στοιχείο στην κορυφή είναι πάντα το array[0]

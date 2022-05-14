@@ -25,6 +25,8 @@ Queue queue_create(DestroyFunc destroy_value) {
 	Queue queue = malloc(sizeof(*queue));
 	queue->stack = stack_create(NULL);
 	queue->stack_for_rev = stack_create(NULL);
+	queue->stack_bottom_rev = NULL;
+	queue->stack_bottom = NULL;
 	return queue;
 }
 
@@ -39,11 +41,9 @@ Pointer queue_front(Queue queue) {
 }
 
 Pointer queue_back(Queue queue) {
-	if(stack_size(queue->stack_bottom_rev) == 0 && stack_size(queue->stack) != 0 )
-	return stack_top(queue->stack);
-	else if(stack_size(queue->stack) == 0 && stack_size(queue->stack_bottom_rev) != 0)
+	if(stack_size(queue->stack) == 0 && stack_size(queue->stack_bottom_rev) != 0)
 	return queue->stack_bottom_rev;
-	else //if(stack_size(queue->stack) != 0 && stack_size(queue->stack_bottom_rev) != 0)
+	else 
 	return stack_top(queue->stack);
 	
 }
