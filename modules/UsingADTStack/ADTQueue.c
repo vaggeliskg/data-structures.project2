@@ -23,7 +23,7 @@ struct queue {
 Queue queue_create(DestroyFunc destroy_value) {
 	Queue queue = malloc(sizeof(*queue));
 	queue->stack = stack_create(NULL);
-	queue->steps = 2;
+	queue->steps = 1;
 	return queue;
 }
 
@@ -66,7 +66,7 @@ void queue_remove_front(Queue queue) {
 			queue->stack_bottom = stack_top(queue->stack);
 		}
 	}
-	queue->steps = 2+ 2*size + vector_size(vec);
+	queue->steps = size;
 }
 
 DestroyFunc queue_set_destroy_value(Queue queue, DestroyFunc destroy_value) {
@@ -75,7 +75,7 @@ DestroyFunc queue_set_destroy_value(Queue queue, DestroyFunc destroy_value) {
 }
 
 void queue_destroy(Queue queue) {
-	queue->steps = 2;
+	queue->steps = 1;
 	stack_destroy(queue->stack);
 	free(queue);
 }
