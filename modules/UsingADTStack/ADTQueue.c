@@ -16,25 +16,30 @@
 struct queue {
 	Stack stack;
 	Pointer stack_bottom;
+	int steps;
 };
 
 
 Queue queue_create(DestroyFunc destroy_value) {
 	Queue queue = malloc(sizeof(*queue));
 	queue->stack = stack_create(NULL);
-	queue->stack_bottom = NULL;
+	queue->steps = 2;
 	return queue;
 }
 
 int queue_size(Queue queue) {
+	queue->steps = 1;
 	return stack_size(queue->stack);
+	
 }
 
 Pointer queue_front(Queue queue) {
+	queue->steps = 1;
 	return queue->stack_bottom;
 }
 
 Pointer queue_back(Queue queue) {
+	queue->steps = 1;
 	return stack_top(queue->stack);
 }
 
@@ -44,6 +49,7 @@ void queue_insert_back(Queue queue, Pointer value) {
 	queue->stack_bottom = value;
 	}
 	else stack_insert_top(queue->stack,value);
+	queue->steps = 1;
 }
 
 void queue_remove_front(Queue queue) {
@@ -60,13 +66,20 @@ void queue_remove_front(Queue queue) {
 			queue->stack_bottom = stack_top(queue->stack);
 		}
 	}
+	queue->steps = 2+ 2*size + vector_size(vec);
 }
 
 DestroyFunc queue_set_destroy_value(Queue queue, DestroyFunc destroy_value) {
+	queue->steps = 1;
 	return stack_set_destroy_value(queue->stack, destroy_value);
 }
 
 void queue_destroy(Queue queue) {
+	queue->steps = 2;
 	stack_destroy(queue->stack);
 	free(queue);
+}
+
+int queue_steps(Queue queue) {
+	return queue->steps;
 }

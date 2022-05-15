@@ -55,3 +55,7 @@ DestroyFunc queue_set_destroy_value(Queue queue, DestroyFunc destroy_value);
 // Οποιαδήποτε λειτουργία πάνω στη ουρά μετά το destroy είναι μη ορισμένη.
 
 void queue_destroy(Queue queue);
+
+//Επιστρέφει τον αριθμό βημάτων που πραγματοποίησε η συναρτηση
+//queue_* που κλήθηκε τελευταία 
+int queue_steps(Queue queue);

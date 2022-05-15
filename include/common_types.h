@@ -19,3 +19,4 @@ typedef int (*CompareFunc)(Pointer a, Pointer b);
 
 // Δείκτης σε συνάρτηση που καταστρέφει ένα στοιχείο value
 typedef void (*DestroyFunc)(Pointer value);
+
