@@ -7,7 +7,7 @@
 #
 #UsingADTStack_ADTQueue_test_OBJS = ADTQueue_test.o $(MODULES)/UsingADTStack/ADTQueue.o $(MODULES)/UsingADTList/ADTStack.o $(MODULES)/UsingLinkedList/ADTList.o $(MODULES)/UsingDynamicArray/ADTVector.o
 
-Queue_benchmark_using_list_OBJS = queue_benchmark.o $(MODULES)/UsingADTStack/ADTQueue.o $(MODULES)/UsingADTList/ADTQueue.o $(MODULES)/UsingLinkedList/ADTList.o
+Queue_benchmark_using_list_OBJS = queue_benchmark.o $(MODULES)/UsingADTList/ADTQueue.o $(MODULES)/UsingLinkedList/ADTList.o 
 
 
 

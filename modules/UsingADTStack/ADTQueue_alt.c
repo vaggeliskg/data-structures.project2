@@ -100,4 +100,6 @@ void queue_destroy(Queue queue) {
 	stack_destroy(queue->stack_for_rev);
 	free(queue);
 }
-//ssffsfsfsf
+int queue_steps(Queue queue) {
+	return queue->steps;
+}

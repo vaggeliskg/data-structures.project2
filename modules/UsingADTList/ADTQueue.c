@@ -44,6 +44,9 @@ int queue_size(Queue queue) {
 	queue->steps = 1;	
 	return list_size(queue->list);
 }
+int queue_steps(Queue queue) {
+	return queue->steps;
+}
 
 Pointer queue_front(Queue queue) {
 	queue->steps = 1;	
