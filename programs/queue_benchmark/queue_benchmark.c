@@ -47,6 +47,8 @@ int main(int argc, char **argv) {
                 queue_remove_front(queue);
                 sum_amortized_time += queue_steps(queue);
                 remove = 0;
+                insert1 = 1;
+                insert2 = 0;
                 int amortized_steps = sum_amortized_time / (i+1);
                  fprintf(filepntr, "%d,%d\n", i+1, amortized_steps);
             }
