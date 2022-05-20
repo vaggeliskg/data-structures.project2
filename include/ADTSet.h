@@ -11,7 +11,7 @@
 #pragma once // #include το πολύ μία φορά
 
 #include "common_types.h"
-
+#include "ADTVector.h"
 
 // Ενα σύνολο αναπαριστάται από τον τύπο Set
 
@@ -85,3 +85,7 @@ Pointer set_node_value(Set set, SetNode node);
 // Επιστρέφει τον κόμβο του στοιχείου, ή SET_EOF αν δεν βρεθεί.
 
 SetNode set_find_node(Set set, Pointer value);
+
+Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value, Vector values);
+
+SetNode set_rec(Vector values, Set set, int start, int end);

@@ -6,8 +6,9 @@
 
 #include <stdlib.h>
 #include <assert.h>
-
+#include "ADTVector.h"
 #include "ADTSet.h"
+#include <stdio.h>
 
 
 // Υλοποιούμε τον ADT Set μέσω BST, οπότε το struct set είναι ένα Δυαδικό Δέντρο Αναζήτησης.
@@ -257,6 +258,41 @@ Set set_create(CompareFunc compare, DestroyFunc destroy_value) {
 	set->destroy_value = destroy_value;
 
 	return set;
+}
+Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value, Vector values){
+	assert(compare !=NULL);
+
+	Set set = malloc(sizeof(*set));
+	set->root = NULL;
+	set->compare = compare;
+	set->destroy_value = destroy_value;
+	//VectorNode node1 = vector_first(values);
+	//VectorNode node2 = vector_last(values);
+	int start = 0;
+	int end = vector_size(values) - 1;
+	// Pointer start = vector_node_value(values,node1);
+	// Pointer end = vector_node_value(values,node2);
+	// int* start_int = start;
+	// int* end_int = end;
+	set->root = set_rec(values, set, start, end);
+	set->size = vector_size(values);	 
+	return set;
+
+}
+
+SetNode set_rec(Vector values, Set set, int start, int end) {
+	if(start > end)
+		return NULL;
+	else {
+		int mid_pos = (start + end) / 2;
+		Pointer mid = vector_get_at(values, mid_pos);
+		SetNode node = node_create(mid);
+		node->value = mid;
+		//printf("~ node = %d\n", *(int*)mid);
+		node->left = set_rec(values,set,start,mid_pos - 1);
+		node->right = set_rec(values,set,mid_pos+1,end);
+		return node;
+	}
 }
 
 int set_size(Set set) {

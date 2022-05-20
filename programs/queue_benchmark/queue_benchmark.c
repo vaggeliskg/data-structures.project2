@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
             }
             if(remove == 1) {
                 queue_remove_front(queue);
-                sum_real_time += queue_steps(queue);
+                sum_real_time = queue_steps(queue);
                 remove = 0;
                 int real_steps = sum_real_time;
                  fprintf(filepntr, "%d,%d\n", i+1, real_steps);
