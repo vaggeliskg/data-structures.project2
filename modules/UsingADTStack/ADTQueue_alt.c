@@ -87,6 +87,11 @@ void queue_remove_front(Queue queue) {
 	stack_remove_top(queue->stack_for_rev);
 	return;
 	}
+	else if(size != 0 && size_r !=0) {
+	queue->steps = 1;	
+	stack_remove_top(queue->stack_for_rev);
+	return;
+	}
 }
 
 DestroyFunc queue_set_destroy_value(Queue queue, DestroyFunc destroy_value) {

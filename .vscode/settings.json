@@ -1,7 +1,7 @@
 {
 	"c_project": {
 		// Όνομα του εκτελέσιμου προγράμματος (μόνο για μεταγλώττιση πολλών αρχείων & make)
-		"program": "Queue_benchmark_using_list",
+		"program": "Queue_benchmark_using_stacks",
 
 		// Directory στο οποίο βρίσκεται το πρόγραμμα (μόνο για μεταγλώτισση με make)
 		"dir": "programs/queue_benchmark",

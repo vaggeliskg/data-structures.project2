@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
                 insert1 = 1;
                 insert2 = 0;
                 amortized_steps = sum_amortized_time / (i+1);
-                 fprintf(filepntr, "%d,%d\n", i+1, amortized_steps);
+                fprintf(filepntr, "%d,%d\n", i+1, amortized_steps);
             }
         }
     }
@@ -63,20 +63,25 @@ int main(int argc, char **argv) {
                 queue_insert_back(queue,value);
                 insert1 = 0;
                 insert2 = 1;
+                continue;
             }
             if(insert2 == 1) {
                 Pointer value = create_int(i);
                 queue_insert_back(queue,value);
-                insert1 = 1;
+                insert1 = 0;
                 insert2 = 0;
                 remove = 1;
+               continue;
             }
             if(remove == 1) {
+                int size = queue_size(queue);
                 queue_remove_front(queue);
                 sum_real_time = queue_steps(queue);
+                insert1 = 1;
+                insert2 = 0;
                 remove = 0;
                 int real_steps = sum_real_time;
-                 fprintf(filepntr, "%d,%d\n", i+1, real_steps);
+                fprintf(filepntr, "%d,%d\n",size, real_steps);
             }
         } 
     }
