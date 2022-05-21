@@ -17,6 +17,7 @@ UsingADTList_ADTQueue_test_OBJS = ADTQueue_test.o $(MODULES)/UsingADTList/ADTQue
 #
 UsingBinarySearchTree_ADTSet_test_OBJS = ADTSet_test.o $(MODULES)/UsingBinarySearchTree/ADTSet.o $(MODULES)/UsingDynamicArray/ADTVector.o
 
+UsingLazyBST_test_OBJS = ADTSet_test.o $(MODULES)/UsingLazyBST/ADTSet.o $(MODULES)/UsingDynamicArray/ADTVector.o
 
 # Ο βασικός κορμός του Makefile
 include ../common.mk
