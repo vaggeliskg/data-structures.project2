@@ -283,10 +283,14 @@ static SetNode node_insert(Set set, SetNode node, CompareFunc compare, Pointer v
 		// value > node->value, συνεχίζουμε δεξιά
 		node->right = node_insert(set,node->right, compare, value, inserted, old_value);
 	}
-	if(node_height(set->root) >=4 ) {
-	return node_repair_balance(set,node);
+	// if(node_height(set->root) >=4 ) {
+	// return node_repair_balance(set,node);
+	// }
+	node_update_height(node);
+	if(node_balance(node) >=4 ){
+		node_repair_balance(set,node);
 	}
-	else return node;
+	return node;
 }
 // Αφαιρεί και αποθηκεύει στο min_node τον μικρότερο κόμβο του υποδέντρου με ρίζα node.
 // Επιστρέφει τη νέα ρίζα του υποδέντρου.

@@ -11,7 +11,7 @@ Queue_benchmark_using_list_OBJS = queue_benchmark.o $(MODULES)/UsingADTList/ADTQ
 
 Queue_benchmark_using_stack_OBJS = queue_benchmark.o $(MODULES)/UsingADTStack/ADTQueue.o $(MODULES)/UsingADTList/ADTStack.o $(MODULES)/UsingLinkedList/ADTList.o $(MODULES)/UsingDynamicArray/ADTVector.o
 
-Queue_benchmark_using_stacks_OBJS = queue_benchmark.o $(MODULES)/UsingADTStack/ADTQueue_alt.o $(MODULES)/UsingADTList/ADTStack.o $(MODULES)/UsingLinkedList/ADTList.o 
+Queue_benchmark_using_list_OBJS = queue_benchmark.o $(MODULES)/UsingADTStack/ADTQueue_alt.o $(MODULES)/UsingADTList/ADTStack.o $(MODULES)/UsingLinkedList/ADTList.o 
 
 #UsingADTStack_ADTQueue_test_OBJS = ADTQueue_test.o $(MODULES)/UsingADTStack/ADTQueue_alt.o $(MODULES)/UsingADTList/ADTStack.o $(MODULES)/UsingLinkedList/ADTList.o 
 # Υλοποιήσεις μέσω ADTList: ADTQueue
