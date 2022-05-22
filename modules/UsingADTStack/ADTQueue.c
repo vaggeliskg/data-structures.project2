@@ -15,8 +15,8 @@
 // Ένα Queue είναι pointer σε αυτό το struct.
 struct queue {
 	Stack stack;
-	Pointer stack_bottom;
-	int steps;
+	Pointer stack_bottom; // pointer στο τελευταίο στοιχείο της στοίβας
+	int steps;		// steps για να αποθηκεύονται τα βήματα για την άσκηση 3
 };
 
 
@@ -35,7 +35,7 @@ int queue_size(Queue queue) {
 
 Pointer queue_front(Queue queue) {
 	queue->steps = 1;
-	return queue->stack_bottom;
+	return queue->stack_bottom; // το μπροστινό μέρος της ουράς είναι το τελευταίο της στοίβας
 }
 
 Pointer queue_back(Queue queue) {
@@ -46,12 +46,12 @@ Pointer queue_back(Queue queue) {
 void queue_insert_back(Queue queue, Pointer value) {
 	if(stack_size(queue->stack) == 0) {
 	stack_insert_top(queue->stack,value);
-	queue->stack_bottom = value;
+	queue->stack_bottom = value;		// το πρώτο στοιχείο που μπαίνει στη στοίβα είναι το κάτω-κάτω
 	}
 	else stack_insert_top(queue->stack,value);
 	queue->steps = 1;
 }
-
+//κάθε φορά που αφαιρείται ένα στοιχείο μπαίνουν στο vector , βγαίνει το στοιχείο και ξαναμπαίνουν στο stack
 void queue_remove_front(Queue queue) {
 	int size = queue_size(queue);
 	Vector vec = vector_create(0, NULL);
@@ -63,7 +63,7 @@ void queue_remove_front(Queue queue) {
 	for(int i = vector_size(vec) ; i > 0 ; i--) {
 		stack_insert_top(queue->stack,vector_get_at(vec,i- 1));
 		if(stack_size(queue->stack) == 1) {
-			queue->stack_bottom = stack_top(queue->stack);
+			queue->stack_bottom = stack_top(queue->stack); // ανανέωση του τελευταίου στοιχείου της στοίβας
 		}
 	}
 	queue->steps = size;

@@ -298,7 +298,7 @@ void test_node_value(void) {
 }
 
 void new_test_create(void) {
-	Vector values = vector_create(0,NULL);
+	Vector values = vector_create(0,free);
 	for(int i = 0 ; i < 11; i++) {
 		Pointer value = create_int(i);
 		vector_insert_last(values,value);
@@ -360,7 +360,7 @@ void new_test_insert(void) {
 }
 
 void new_test_remove(void) {
-	Vector values = vector_create(0,NULL);
+	Vector values = vector_create(0,free);
 	for(int i = 0 ; i < 7 ; i++) {
 		Pointer value = create_int(i);
 		vector_insert_last(values,value);
@@ -478,7 +478,7 @@ void new_test_find(void) {
 }
 
 void new_test_iterate(void) {
-	Vector values = vector_create(0,NULL);
+	Vector values = vector_create(0,free);
 	for(int i = 0 ; i < 7 ; i++) {
 		Pointer value = create_int(i);
 		vector_insert_last(values,value);
@@ -525,7 +525,7 @@ void new_test_iterate(void) {
 void new_test_node_value(void) {
 	// Η συνάρτηση αυτή ελέγχει ότι ένας κόμβος περιέχει πάντα την αρχική του τιμή,
 	// χωρίς να επηρρεάζεται από άλλους κόμβους που προστίθενται ή διαγράφονται.
-	Vector values = vector_create(0,NULL);
+	Vector values = vector_create(0,free);
 	for(int i = 0 ; i < 7 ; i++) {
 		Pointer value = create_int(i);
 		vector_insert_last(values,value);

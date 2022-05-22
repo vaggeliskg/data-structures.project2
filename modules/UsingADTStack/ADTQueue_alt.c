@@ -15,10 +15,10 @@
 // Ένα Queue είναι pointer σε αυτό το struct.
 struct queue {
 	Stack stack;
-	Pointer stack_bottom;
-	Stack stack_for_rev;
-	Pointer stack_bottom_rev;
-	int steps;
+	Pointer stack_bottom;	// pointer στο κάτω-κάτω στοιχείο της στοίβας 
+	Stack stack_for_rev;	//δεύτερη στοίβα για τις διαγραφές 
+	Pointer stack_bottom_rev; //pointer στο κάτω-κάτω στοιχείο της 2ης στοίβας
+	int steps;	//αποθήκευση βημάτων κάθε συνάρτησης
 };
 
 
@@ -31,19 +31,19 @@ Queue queue_create(DestroyFunc destroy_value) {
 	queue->steps = 1;
 	return queue;
 }
-
+//το μέγεθος της ουράς τώρα εξαρτάται και από τις 2 στοίβες
 int queue_size(Queue queue) {
 	queue->steps = 1;
 	return stack_size(queue->stack) + stack_size(queue->stack_for_rev);
 }
-
+//περιπτώσεις του μπροστινού στοιχείου της ουράς ανάλογα με την κατανομή των στοιχείων στις στοίβες
 Pointer queue_front(Queue queue) {
 	queue->steps = 1;
 	if(stack_size(queue->stack_for_rev) !=0 )
 	return stack_top(queue->stack_for_rev);
 	else return queue->stack_bottom;
 }
-
+//περιπτώσεις και για το πίσω στοιχείο για τον ίδιο λόγο
 Pointer queue_back(Queue queue) {
 	queue->steps = 1;
 	if(stack_size(queue->stack) == 0 && stack_size(queue->stack_bottom_rev) != 0)
@@ -52,7 +52,7 @@ Pointer queue_back(Queue queue) {
 	return stack_top(queue->stack);
 	
 }
-
+//λογική ίδια με αυτή της άσκησης 1 για την insert
 void queue_insert_back(Queue queue, Pointer value) {
 	queue->steps = 1;
 	if(stack_size(queue->stack) == 0) {
@@ -61,7 +61,10 @@ void queue_insert_back(Queue queue, Pointer value) {
 	}
 	else stack_insert_top(queue->stack,value);
 }
-
+//εδώ πλέον έχουμε 2 στοίβες και όποτε απαιτείται διαγραφή τα στοιχεία μεταφέρονται στη 2η στοίβα
+//όπου και παραμένουν μέχρι να αδειάσει, τώρα δηλαδή τα στοιχεία μου μπορεί να βρίσκονται σε 2 στοίβες
+//στην 1η γίνονται οι εισαγωγές και στη 2η γίνονται οι διαγραφές όσο έχει στοιχεία.Επειδή λοιπόν έχω
+//2 στοίβες χρειάζομαι και περιπτώσεις ανάλογα με το πως ειναι κατανεμημένα τα στοιχεία 
 void queue_remove_front(Queue queue) {
 	int size = stack_size(queue->stack);
 	int size_r = stack_size(queue->stack_for_rev);

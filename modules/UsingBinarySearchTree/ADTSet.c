@@ -259,6 +259,7 @@ Set set_create(CompareFunc compare, DestroyFunc destroy_value) {
 
 	return set;
 }
+// συνάρτηση που δημιουργεί σετ από ταξινομημένο vector
 Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value, Vector values){
 	assert(compare !=NULL);
 
@@ -266,31 +267,24 @@ Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value
 	set->root = NULL;
 	set->compare = compare;
 	set->destroy_value = destroy_value;
-	//VectorNode node1 = vector_first(values);
-	//VectorNode node2 = vector_last(values);
-	int start = 0;
-	int end = vector_size(values) - 1;
-	// Pointer start = vector_node_value(values,node1);
-	// Pointer end = vector_node_value(values,node2);
-	// int* start_int = start;
-	// int* end_int = end;
+	int start = 0;							//1η θέση του vector
+	int end = vector_size(values) - 1;		// τελευταία θέση του vector
 	set->root = set_rec(values, set, start, end);
 	set->size = vector_size(values);	 
 	return set;
 
 }
-
+//αναδρομική συνάρτηση που χτίζει το σετ 
 SetNode set_rec(Vector values, Set set, int start, int end) {
 	if(start > end)
 		return NULL;
 	else {
-		int mid_pos = (start + end) / 2;
+		int mid_pos = (start + end) / 2; // παίρνει πρώτα το μεσαίο στοιχείο
 		Pointer mid = vector_get_at(values, mid_pos);
 		SetNode node = node_create(mid);
 		node->value = mid;
-		//printf("~ node = %d\n", *(int*)mid);
-		node->left = set_rec(values,set,start,mid_pos - 1);
-		node->right = set_rec(values,set,mid_pos+1,end);
+		node->left = set_rec(values,set,start,mid_pos - 1); //συνεχίζει αναδρομικά(το μισο του μισού..)
+		node->right = set_rec(values,set,mid_pos+1,end);	//το ίδιο και για το δεξί παιδί
 		return node;
 	}
 }
