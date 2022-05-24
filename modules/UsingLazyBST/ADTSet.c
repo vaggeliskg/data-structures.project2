@@ -182,6 +182,7 @@ static SetNode node_repair_balance(Set set, SetNode node) {
 			vector_insert_last(values,value);
 			parent = find_parent(set->root,value);
 			set_remove(set,value);
+			//needs improvements
 		}
 		if(node->left == NULL) {
 			if(first) {

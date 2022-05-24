@@ -70,7 +70,7 @@ void test_insert(void) {
 
 	Set set = set_create(compare_ints, free);
 
-	int N = 1000;
+	int N = 10;
 
 	int** value_array = malloc(N * sizeof(*value_array));
 
