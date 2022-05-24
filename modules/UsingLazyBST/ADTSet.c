@@ -56,7 +56,7 @@ static SetNode node_find_min(SetNode node) {
 		? node_find_min(node->left)				// Υπάρχει αριστερό υποδέντρο, η μικρότερη τιμή βρίσκεται εκεί
 		: node;									// Αλλιώς η μικρότερη τιμή είναι στο ίδιο το node
 }
-
+//Επιστρέφει ένα ισοζυγισμένο δέντρο με τις τιμές του ταξινομημένου vector
 Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value, Vector values){
 	assert(compare !=NULL);
 
@@ -71,7 +71,8 @@ Set set_create_from_sorted_values(CompareFunc compare, DestroyFunc destroy_value
 	return set;
 
 }
-
+//καλείται μόνο απο την set_create_from_sorted_values, λειτουργεί αναδρομικά και κατασκευάζει
+//το ισοζυγισμένο δέντρο
 SetNode set_rec(Vector values, Set set, int start, int end) {
 	if(start > end)
 		return NULL;
@@ -86,51 +87,55 @@ SetNode set_rec(Vector values, Set set, int start, int end) {
 		return node;
 	}
 }
+//Επιστρέφει τον πατέρα του κόμβου με τιμή value
+static SetNode find_parent(SetNode node, Pointer key) {
+	if(node == NULL) {
+		return NULL;
+	}
+	SetNode parent = NULL;
+	while(node != NULL) {
+		if(key < node->value) {
+			parent = node;
+			node = node->left;
+		}
+		else if(key > node->value) {
+			parent = node;
+			node = node->right;
+		}
+		else if (key == node->value)
+		return parent;
+	}
+	return NULL;
+}
 
-// static SetNode find_parent(SetNode node, Pointer key) {
-// 	if(node == NULL) {
-// 		return NULL;
-// 	}
-// 	SetNode parent = NULL;
-// 	while(node != NULL) {
-// 		if(key < node->value) {
-// 			parent = node;
-// 			node = node->left;
-// 		}
-// 		else if(key > node->value) {
-// 			parent = node;
-// 			node = node->right;
-// 		}
-// 		else if (key == node->value)
-// 		return parent;
-// 	}
-// 	return NULL;
-// }
 
-
- static int int_max(int a, int b) {
+//Επιστρέφει τη μέγιστη τιμή μεταξύ 2 ακεραίων
+static int int_max(int a, int b) {
  	return (a > b) ? a : b ;
- }
-
+}
+//Επιστρέφει το ύψος που βρίσκεται ο κόμβος στο δέντρο
 static int node_height(SetNode node) {
 	if (!node) return 0;
 	return node->height;
 }
-
+//Ενημερώνει το ύψος ενός κόμβου
 static void node_update_height(SetNode node) {
 	node->height = 1 + int_max(node_height(node->left), node_height(node->right));
 }
+//Επιστρέφει το μέγεθος ενός κόμβου
 static int node_size(SetNode node) {
-	if(!node) return 1;
+	if(!node) return 0;
 	return node->size;
 }
+//Ενημερώνει το μέγεθος ενός κόμβου
 static void node_update_size(SetNode node) {
 	node->size = 1 + node_size(node->left) + node_size(node->right);
 }
 
-
+//Ελέγχει(αν το ύψος του node ειναι >= 4) αν το υποδέντρο του node με ρίζα τον ίδιο χρειάζεται balance
+//Αν χρειάζεται επιστρέφει 1, αν δε χρειάζεται επιστρέφει 0 
 static int check_balance(SetNode node) {
-	if(node->height >=4) {
+	if(node->height >= 4) {
 		if(node_size(node->left) > (2 / 3) * node_size(node) ||  node_size(node->right) > (2 / 3) * node_size(node) ) {
 			return 1;
 		}
@@ -138,85 +143,56 @@ static int check_balance(SetNode node) {
 	}
 	else return 0;
 }
-
-static int check_route(SetNode node, Pointer value, Set set) {
+//Η check_route ανιχνεύει ΜΟΝΟ το path του δέντρου στο οποίο γίνεται insert ή remove του value
+//ελέγχοντας σε κάθε κόμβο του path αν χρείαζεται balance από εκεί και κάτω(μέσω της check_balance)
+//Αν χρειάζεται επιστρέφει τη ρίζα του υποδέντρου που θέλει balance αλλιώς NULL 
+static SetNode check_route(SetNode node, Pointer value, Set set) {
 	int compare_res = set->compare(value, node->value);
 	int check = 0;
 	check = check_balance(node);
 	if(check) {
-		return 1;
+		return node;
 	}
 	if(compare_res == 0) {
-		return 0;
+		return NULL;
 	}
 	else if(compare_res < 0) {
-		check_route(node->left,value,set);
+		node = check_route(node->left,value,set);
 	}
 	else {
-		check_route(node->right,value,set);
+		node = check_route(node->right,value,set);
 	}	
-	return 0;
+	return NULL;
 }
 
 
-// static SetNode node_repair_balance(Set set, SetNode node) {
-// 	node_update_height(node);
-// 	CompareFunc compare = set->compare;
-// 	DestroyFunc destroy_value = set->destroy_value;
-// 	SetNode min;
-// 	Pointer value;
-// 	Vector values = vector_create(0,free);
-// 	int balance = node_balance(node);
-// 	SetNode parent = find_parent(node,set_node_value(set,node));
-// 	if(balance > 2) {
-// 		while(balance > 0) {
-// 			min = node_find_min(node->left);
-// 			value = set_node_value(set,min);
-// 			vector_insert_last(values,value);
-// 			set_remove(set,value);
-// 		}
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-
-// 		Set new_set = set_create_from_sorted_values(compare,destroy_value, values);
-// 		parent->left = new_set->root;
-
-// 	}
-// 	else if(balance < - 2) {
-// 		while(balance < 0) {
-// 			min = node_find_min(node->right);
-// 			value = set_node_value(set,min);
-// 			vector_insert_last(values,value);
-// 			set_remove(set,value);
-// 		}
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-// 		min = node_find_min(node);
-// 		value = set_node_value(set,min);
-// 		vector_insert_last(values,value);
-// 		set_remove(set,value);
-
-// 		Set new_set = set_create_from_sorted_values(compare,destroy_value, values);
-// 		parent->right = new_set->root;
-// 	}
-// 	return node;
-// }
+static SetNode node_repair_balance(Set set, SetNode node) {
+	SetNode min;
+	Pointer value;
+	SetNode parent;
+	Vector values = vector_create(0,NULL);
+	while(node->height > 1) {
+		min = node_find_min(node);
+		value = set_node_value(set,min);
+		vector_insert_last(values,value);
+		set_remove(set,value);
+	}
+	if(node->height == 1) {
+		min = node_find_min(node);
+		value = set_node_value(set,min);
+		vector_insert_last(values,value);
+		parent = find_parent(set->root,value);
+		set_remove(set,value);
+	}
+	Set balanced_set = set_create_from_sorted_values(set->compare,set->destroy_value,values);
+	if(balanced_set->root->value >= parent->value) {
+		parent->right = balanced_set->root;
+	}
+	else {
+		parent->left = balanced_set->root;
+	}
+	return set->root;
+}
 
 // Επιστρέφει τον κόμβο με τιμή ίση με value στο υποδέντρο με ρίζα node, διαφορετικά NULL
 
@@ -320,6 +296,7 @@ static SetNode node_insert(Set set, SetNode node, CompareFunc compare, Pointer v
 		// value > node->value, συνεχίζουμε δεξιά
 		node->right = node_insert(set,node->right, compare, value, inserted, old_value);
 	}
+	//Ενημερώνω το ύψος και το μέγεθος κάθε φορά που προσθέτω έναν κόμβο
 	node_update_height(node);
 	node_update_size(node);
 	return node;
@@ -432,9 +409,12 @@ int set_size(Set set) {
 void set_insert(Set set, Pointer value) {
 	bool inserted;
 	Pointer old_value;
+	SetNode node;
 	set->root = node_insert(set,set->root, set->compare, value, &inserted, &old_value);
-	check_route(set->root,value,set);
-
+	node = check_route(set->root,value,set);
+	if(node != NULL) {
+	set->root = node_repair_balance(set,node);
+	}
 	// Το size αλλάζει μόνο αν μπει νέος κόμβος. Στα updates κάνουμε destroy την παλιά τιμή
 	if (inserted)
 		set->size++;

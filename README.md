@@ -42,32 +42,32 @@ __Α.Μ.__: sdi2100045
 (περιέχεται και φάκελος graphs που περιέχει τα διαγράμματα που παραδίδονται)
 
 
- amortized list: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/list(amortized).png
+ amortized list: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/amortized(list).png
 
 amortized χρόνος με λίστα O(1) αφού όλες οι λειτουργίες της είναι Ο(1)
 
 
-real list: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/list(real).png
+real list: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/list(real).png
 
 real χρόνος με λίστα O(1) αφού όλες οι λειτουργίες της είναι Ο(1)
 
-amortized stack: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/stack(amortized).png
+amortized stack: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/stack(amortized).png
 
 
 amortized time με στοίβα γραμμικός αφού σε κάθε διαγραφή μεταφέρονται όλα στο vector και μετά πίσω πάλι
 
 
-real stack: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/stack(real).png
+real stack: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/stack(real).png
 
 real time με στοίβα O(n) αφού σε κάθε διαγραφή γίνεται μεταφορά όλων των στοιχείων
 
 
-amortized stacks: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/using2stacks(amortized).png
+amortized stacks: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/using2stacks(amortized).png
 
 amortized time with 2 stacks -> O(1) αυτό είναι και το πλεονέκτημα αυτής της υλοποίησης
 
 
-real stacks: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/programs/graphs/using2stacks(real).png
+real stacks: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/master/graphs/using2stacks(real).png
 
 στο real time όμως παρατηρούνται τα κατακόρυφα τμήματα που οφείλονται στις περιπτώσεις όπου η 2η στοίβα αδείαζει και χρείαζεται μεταφορά όλων των στοχείων από την 1η σε αυτή που όπως φαίνεται συμβαίνει σπάνια. 
 
