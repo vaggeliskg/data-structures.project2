@@ -94,3 +94,6 @@ real stacks: https://github.com/chatziko-k08/2022-project-2-vaggeliskg/blob/mast
 πέρα απο τα λινκ των εικόνων που συμπεριλαμβάνονται στο README.md υπάρχει και το programs/graphs που έχει επίσης τις εικόνες των διγραμμάτων!
 
 ΑΣΚΗΣΗ 4: Υπάρχει η υλοποίηση της set_create_from_sorted_values + μιας set_rec που αναδρομικά κατασκευάζει το σετ.
+
+ΑΣΚΗΣΗ 5: Δεν ολοκληρώθηκε αλλά η ιδέα ήταν η εξής: με τη χρήση των node_size, node_height 
+node_update_height, node_update_size η check_route διασχίζει το δέντρο σε συγκρεκριμένο path ενώ η check_balance ελέγχει για unbalanced σημεία η find_parent εντοπίζει τον πατέρα του κόμβου που χρειάζεται unbalance και η node_repair_balance βάζει τα nodes στο vector για φτιάξει το balanced δέντρο η set_create_from_sorted_values.
